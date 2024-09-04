@@ -1,7 +1,7 @@
 ---
 eip: TBA
 title: Wallet Interface for Saving Permissions and Account Portability
-description: A standard interface for wallets to save permissions, issue delegation contexts, and enable account portability
+description: A standard interface for embedded wallets to save permissions to a portable wallet.
 author: Dan Finlay (@danfinlay), Idris Bowman (@V00D00-child)
 discussions-to: TBD
 status: Draft
