@@ -1,13 +1,13 @@
 ---
-eip: 7716
-title: Wallet Interface for Saving Permissions
-description: A standard interface for wallets to save permissions and issue delegation contexts
-author: Dan Finlay (@danfinlay)
+eip: TBA
+title: Wallet Interface for Saving Permissions and Account Portability
+description: A standard interface for wallets to save permissions, issue delegation contexts, and enable account portability
+author: Dan Finlay (@danfinlay), Idris Bowman (@V00D00-child)
 discussions-to: TBD
 status: Draft
 type: Standards Track
 category: ERC
-created: 2023-12-14
+created: 2024-09-04
 requires: 7710
 ---
 
@@ -60,6 +60,16 @@ type Permission = {
   permissionsContext: string;
   delegationManager: string;
   expiration: number;
+  // Types should match the types in ERC-7715
+  permissionType: {
+    type: "native-token-transfer" | "erc20-token-transfer" | "erc721-token-transfer" | "erc1155-token-transfer";
+    data: {
+      allowance?: string; // hex value for native and ERC20 tokens
+      address?: string; // contract address for ERC20, ERC721, ERC1155 tokens
+      tokenIds?: string[]; // hex value array for ERC721 tokens
+      allowances?: { [tokenId: string]: string }; // for ERC1155 tokens
+    };
+  };
 }
 
 provider.request({
