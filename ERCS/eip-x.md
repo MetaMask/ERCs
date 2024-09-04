@@ -3,7 +3,7 @@ eip: 7716
 title: Wallet Interface for Saving Permissions
 description: A standard interface for wallets to save permissions and issue delegation contexts
 author: Dan Finlay (@danfinlay)
-discussions-to: https://ethereum-magicians.org/t/erc-7716-wallet-interface-for-saving-permissions/XXXX
+discussions-to: TBD
 status: Draft
 type: Standards Track
 category: ERC
