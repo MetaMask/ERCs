@@ -34,12 +34,12 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 Wallets MUST implement the following two methods:
 
-### `wallet_getDelegationTarget`
+### `wallet_getPermissionsTarget`
 
-First we need to get a local address to delegate this to (an "app key"):
+First we need to get a wallet-hosted address to delegate this to. We can call this a "delegation target".
 ```typescript
-const appKey = await provider.request({
-  method: 'wallet_getDelegationTarget',
+const permissionsTarget = await provider.request({
+  method: 'wallet_getPermissionsTarget',
   params: [{
     chainId: '0x1', // EIP-155 chain ID as hex string
     // Alternatively, using CAIP-2 chain ID:
@@ -56,7 +56,7 @@ The application can then assign its permission to that address, and then save th
 
 ```typescript
 type Permission = {
-  appKey: string;
+  permissionsTarget: string;
   permissionsContext: string;
   delegationManager: string;
   expiration: number;
@@ -82,7 +82,7 @@ provider.request({
 
 This ERC builds upon ERC-7715 and ERC-7710 to create a more comprehensive and flexible permission management system. By allowing dApps to save permissions directly to wallets, we enable a more seamless user experience while maintaining security and control.
 
-The `wallet_getDelegationTarget` method provides a way for dApps to obtain a local address specific to their application. This app-specific key allows for more granular permission management and reduces the risk of permission conflicts between different dApps.
+The `wallet_getPermissionsTarget` method provides a way for dApps to obtain a local address specific to their application. This app-specific key allows for more granular permission management and reduces the risk of permission conflicts between different dApps.
 
 The `wallet_savePermission` method enables dApps to store standardized permission objects in the wallet. This approach allows wallets to manage permissions consistently across different applications and provides users with a centralized view of all granted permissions.
 
@@ -104,7 +104,7 @@ This ERC is designed to be compatible with existing wallet implementations. Wall
 2. Implementations SHOULD provide clear user interfaces for managing saved permissions, including the ability to view, edit, and revoke permissions.
 3. Wallets SHOULD implement time-based or usage-based automatic revocation of permissions to limit the potential impact of compromised permissions.
 4. DApps SHOULD request the minimum necessary permissions and duration required for their functionality.
-5. Wallets MUST provide single-use keys in response to the `wallet_getDelegationTarget` method (so that it cannot be fooled into misusing the wrong permission).
+5. Wallets MUST provide single-use keys in response to the `wallet_getPermissionsTarget` method (so that it cannot be fooled into misusing the wrong permission).
 
 ## Copyright
 
