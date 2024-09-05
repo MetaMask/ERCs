@@ -78,6 +78,24 @@ provider.request({
 });
 ```
 
+### `wallet_getSavedPermissions`
+
+We need to return any permissions previously saved by the Dapp with that address.
+
+The application can then select a permission and can redeem with `permissionsContext` and `delegationManager` as defined in ERC-7710 with app-specific key:
+
+```typescript
+const savedPermissions = await provider.request({
+  method: 'wallet_getSavedPermissions',
+  params: [{
+    chainId: '0x1', // EIP-155 chain ID as hex string
+    // Alternatively, using CAIP-2 chain ID:
+    // chainId: 'eip155:1'
+    permissionsTarget: '0x...'
+  }]
+});
+```
+
 ## Rationale
 
 This ERC builds upon ERC-7715 and ERC-7710 to create a more comprehensive and flexible permission management system. By allowing dApps to save permissions directly to wallets, we enable a more seamless user experience while maintaining security and control.
@@ -85,6 +103,8 @@ This ERC builds upon ERC-7715 and ERC-7710 to create a more comprehensive and fl
 The `wallet_getPermissionsTarget` method provides a way for dApps to obtain a local address specific to their application. This app-specific key allows for more granular permission management and reduces the risk of permission conflicts between different dApps.
 
 The `wallet_savePermission` method enables dApps to store standardized permission objects in the wallet. This approach allows wallets to manage permissions consistently across different applications and provides users with a centralized view of all granted permissions.
+
+The `wallet_getSavedPermissions` method allows dApps to retrieve previously saved permissions for a specific permissions target. This functionality enables users to review and manage their permissions across different applications and provides a unified interface for interacting with saved permissions.
 
 ## Backwards Compatibility
 
